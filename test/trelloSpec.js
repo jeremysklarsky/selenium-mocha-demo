@@ -1,3 +1,4 @@
+var password = "";
 var should = require('chai').should();
 var test = require('selenium-webdriver/testing');
 var webdriver = require('selenium-webdriver');
@@ -34,7 +35,7 @@ test.describe('Trello', function(){
     // login
     driver.get('https://trello.com/login');
     driver.findElement({id:'user'}).sendKeys("jeremy.sklarsky@gmail.com");
-    driver.findElement({id:'password'}).sendKeys("UkypR47R");
+    driver.findElement({id:'password'}).sendKeys(password);
     driver.findElement({id:'login'}).click();
     // wait for login to happen
     driver.wait(function () {

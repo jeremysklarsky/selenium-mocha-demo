@@ -22,7 +22,7 @@ test.describe('Wikipedia', function() {
   });
 
   test.it('should be able to search for an article', function() {
-    this.timeout(6000);
+    this.timeout(8000);
     driver.get('http://www.wikipedia.com');
 
     driver.findElement(webdriver.By.name("search")).sendKeys("javascript");
@@ -69,7 +69,7 @@ test.describe('Trello', function(){
   });
 
   afterEach(function(){
-    // driver.quit();
+    driver.quit();
   });
 
   test.it('should login', function(){

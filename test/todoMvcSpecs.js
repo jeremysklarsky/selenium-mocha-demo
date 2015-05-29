@@ -24,9 +24,12 @@ test.describe('Todo-MVC', function(){
   test.it('can remove an item', function(){
     this.timeout(6000);
     addItem(driver, "Something Important");
-    var listItem = driver.findElement({tagName: 'li'});
-    // need better way to "focus" on element...can't get webactions to work
-    driver.findElement({tagName:'li'}).click();
+    driver.findElement({tagName: 'li'}).then(function(element){
+      new webdriver.ActionSequence(driver).
+        mouseMove(element).
+        perform();      
+    });
+    
     driver.findElement({className: 'destroy', tagName:'button'}).click();
     driver.findElements({tagName:'li'}).then(function(elements){
       elements.length.should.equal(3);

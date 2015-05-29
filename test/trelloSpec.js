@@ -1,4 +1,4 @@
-var password = "UkypR47R";
+var password = "";
 var should = require('chai').should();
 var test = require('selenium-webdriver/testing');
 var webdriver = require('selenium-webdriver');

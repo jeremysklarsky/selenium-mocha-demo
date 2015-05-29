@@ -21,23 +21,14 @@ test.describe('Todo-MVC', function(){
     });
   });
 
-  test.xit('can remove an item', function(){
+  test.it('can remove an item', function(){
     this.timeout(6000);
     addItem(driver, "Something Important");
     var listItem = driver.findElement({tagName: 'li'});
-    
-    new webdriver.ActionSequence(driver).
-        mouseMove(listItem).
-        perform();
-
-    driver.wait(function () {
-      return driver.isElementPresent({className: 'destroy', tagName:'button'});
-    }, 4000);
-
+    driver.findElement({tagName:'li'}).click();
     driver.findElement({className: 'destroy', tagName:'button'}).click();
-    
-    listItem.getText().then(function(text){
-      text.should.equal("All");
+    driver.findElements({tagName:'li'}).then(function(elements){
+      elements.length.should.equal(3);
     });
   });
 
@@ -48,9 +39,34 @@ test.describe('Todo-MVC', function(){
     driver.findElement({className: 'toggle', tagName:'input'}).click();
     listItem.getAttribute('class').then(function(attr){
       attr.should.equal('completed');
+    });    
+  });
+
+  test.xit('can edit an item', function(){
+    this.timeout(6000);
+    addItem(driver, "Something Important");
+    var listItem = driver.findElement({tagName:'li'})
+
+    // driver.wait(function () {
+    //   return driver.isElementPresent({id:'footer'});
+    // }, 4000);
+    
+    // listItem.getText().then(function(text){
+    //   console.log(text);
+    // });
+
+    // new webdriver.ActionSequence(driver).
+    //     mouseMove(listItem).
+    //     doubleClick().
+    //     perform();
+
+    var newText = "Something More Important!"
+    listItem.doubleClick();
+    listItem.sendKeys(newText);
+    driver.findElement({id:'new-todo'}).sendKeys(webdriver.Key.ENTER);
+    listItem.getText().then(function(text){
+      text.should.equal(newText);
     });
-    
-    
   });
 });
 

@@ -25,6 +25,7 @@ test.describe('Todo-MVC', function(){
     this.timeout(6000);
     addItem(driver, "Something Important");
     var listItem = driver.findElement({tagName: 'li'});
+    // need better way to "focus" on element...can't get webactions to work
     driver.findElement({tagName:'li'}).click();
     driver.findElement({className: 'destroy', tagName:'button'}).click();
     driver.findElements({tagName:'li'}).then(function(elements){
@@ -42,31 +43,22 @@ test.describe('Todo-MVC', function(){
     });    
   });
 
-  test.xit('can edit an item', function(){
+  test.it('can edit an item', function(){
     this.timeout(6000);
     addItem(driver, "Something Important");
-    var listItem = driver.findElement({tagName:'li'})
-
-    // driver.wait(function () {
-    //   return driver.isElementPresent({id:'footer'});
-    // }, 4000);
-    
-    // listItem.getText().then(function(text){
-    //   console.log(text);
-    // });
-
-    // new webdriver.ActionSequence(driver).
-    //     mouseMove(listItem).
-    //     doubleClick().
-    //     perform();
-
-    var newText = "Something More Important!"
-    listItem.doubleClick();
-    listItem.sendKeys(newText);
-    driver.findElement({id:'new-todo'}).sendKeys(webdriver.Key.ENTER);
-    listItem.getText().then(function(text){
-      text.should.equal(newText);
+    driver.findElement({tagName:'li'}).then(function(element){
+      new webdriver.ActionSequence(driver).
+        doubleClick(element).
+        sendKeys(" and Time Sensitive!").
+        sendKeys(webdriver.Key.ENTER).
+        perform();
     });
+    
+    // driver.findElement({className: ' editing'}).sendKeys(newText);
+    driver.findElement({tagName: 'li'}).getText().then(function(text){
+      text.should.equal("Something Important and Time Sensitive!");
+    });
+
   });
 });
 

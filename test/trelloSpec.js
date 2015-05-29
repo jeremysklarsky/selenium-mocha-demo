@@ -1,4 +1,4 @@
-var password = "";
+var password = "UkypR47R";
 var should = require('chai').should();
 var test = require('selenium-webdriver/testing');
 var webdriver = require('selenium-webdriver');
@@ -18,7 +18,7 @@ test.describe('Trello', function(){
     this.timeout(8000);   
     driver.get('https://trello.com/login');
     driver.findElement({id:'user'}).sendKeys("jeremy.sklarsky@gmail.com");
-    driver.findElement({id:'password'}).sendKeys("UkypR47R");
+    driver.findElement({id:'password'}).sendKeys(password);
     driver.findElement({id:'login'}).click();
     
     driver.wait(function () {
